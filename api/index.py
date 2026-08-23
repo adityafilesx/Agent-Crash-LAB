@@ -16,9 +16,7 @@ Base.metadata.create_all(bind=engine)
 
 # Try to seed if empty
 try:
-    from seed_agents import seed_agents
-    from seed_scenarios import seed_scenarios
-    seed_agents()
-    seed_scenarios()
+    from app.seed import seed
+    seed()
 except Exception as e:
     print("Seed failed:", e)
