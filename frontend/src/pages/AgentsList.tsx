@@ -44,7 +44,7 @@ export default function AgentsList() {
     setSubmitting(true);
     
     try {
-      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8000');
       const response = await fetch(`${API_BASE}/api/agents`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
