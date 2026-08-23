@@ -28,7 +28,10 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    return response.json();
+    
+    // Await json() to ensure SyntaxErrors from Vercel returning HTML as 200 OK are caught!
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.warn(`API call failed for ${path}, using mock fallback. Error:`, error);
     
