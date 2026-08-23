@@ -5,7 +5,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DashboardLayout from './layouts/DashboardLayout';
 import DashboardHome from './pages/DashboardHome';
-import PlaceholderPage from './pages/PlaceholderPage';
 import TestRunsList from './pages/TestRunsList';
 import TestRunCreate from './pages/TestRunCreate';
 import TestRunDetails from './pages/TestRunDetails';

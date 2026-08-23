@@ -54,9 +54,9 @@ export default function ReportsPage() {
   // --- Aggregation Logic ---
   
   // Overall Metrics
-  const completedRuns = testRuns.filter(r => r.status === 'completed' || r.status === 'failed');
+  const completedRuns = testRuns.filter(r => ['passed', 'failed', 'error', 'timeout'].includes(r.status));
   const totalRuns = completedRuns.length;
-  const passedRuns = completedRuns.filter(r => r.result_status === 'pass').length;
+  const passedRuns = completedRuns.filter(r => r.status === 'passed').length;
   const passRate = totalRuns > 0 ? Math.round((passedRuns / totalRuns) * 100) : 0;
   
   // Calculate Avg Duration
@@ -77,7 +77,7 @@ export default function ReportsPage() {
       const cat = scenario.category || 'Unknown';
       if (!categoryStats[cat]) categoryStats[cat] = { total: 0, fails: 0 };
       categoryStats[cat].total++;
-      if (run.result_status === 'fail') {
+      if (run.status !== 'passed') {
         categoryStats[cat].fails++;
       }
     }
@@ -94,7 +94,7 @@ export default function ReportsPage() {
         agentStats[key] = { total: 0, passes: 0, name: agent.name, version: version?.version || 'unknown' };
       }
       agentStats[key].total++;
-      if (run.result_status === 'pass') {
+      if (run.status === 'passed') {
         agentStats[key].passes++;
       }
     }

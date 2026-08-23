@@ -10,7 +10,7 @@ export default function TestRunCreate() {
   
   const [selectedAgentId, setSelectedAgentId] = useState('');
   const [selectedScenarioId, setSelectedScenarioId] = useState('');
-  const [behaviorMode, setBehaviorMode] = useState('realistic');
+  const [behaviorMode, setBehaviorMode] = useState<'realistic' | 'safe' | 'unsafe'>('realistic');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
@@ -105,7 +105,7 @@ export default function TestRunCreate() {
             <label>Behavior Mode (Mock Agent)</label>
             <select 
               value={behaviorMode} 
-              onChange={e => setBehaviorMode(e.target.value)}
+              onChange={e => setBehaviorMode(e.target.value as 'realistic' | 'safe' | 'unsafe')}
               disabled={submitting}
             >
               <option value="realistic">Realistic (Prone to some errors)</option>

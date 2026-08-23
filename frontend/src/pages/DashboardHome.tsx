@@ -10,7 +10,7 @@ import ReliabilityGauge from '../components/ReliabilityGauge';
 import StatusBadge from '../components/StatusBadge';
 import { getAgents, getHealth } from '../services/api';
 import type { Agent, HealthStatus } from '../types';
-import { Activity, Terminal, Zap, Server, Database, Bot } from 'lucide-react';
+import { Activity, Terminal, Zap } from 'lucide-react';
 
 export default function DashboardHome() {
   const [agent, setAgent] = useState<Agent | null>(null);
