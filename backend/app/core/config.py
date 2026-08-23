@@ -16,8 +16,9 @@ class Settings(BaseSettings):
     app_version: str = "0.1.0"
     debug: bool = True
 
+    import os
     # --- Database ---
-    database_url: str = "postgresql://agentcrash:agentcrash_dev@db:5432/agentcrashlab"
+    database_url: str = "sqlite:////tmp/test.db" if os.environ.get("VERCEL") else "postgresql://agentcrash:agentcrash_dev@db:5432/agentcrashlab"
 
     # --- Server ---
     backend_host: str = "0.0.0.0"

@@ -38,13 +38,25 @@ logger = structlog.get_logger()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application lifespan — runs on startup and shutdown."""
-    # Startup: verify database connection
-    try:
-        with engine.connect() as conn:
-            conn.execute(text("SELECT 1"))
-        logger.info("Database connection established")
-    except Exception as e:
-        logger.error("Database connection failed", error=str(e))
+    import os
+    if os.environ.get("VERCEL"):
+        # Create tables
+        Base.metadata.create_all(bind=engine)
+        # Try to seed if empty
+        try:
+            from app.seed import seed
+            seed()
+            logger.info("Vercel ephemeral database seeded successfully")
+        except Exception as e:
+            logger.error("Vercel seeding failed", error=str(e))
+    else:
+        # Startup: verify database connection
+        try:
+            with engine.connect() as conn:
+                conn.execute(text("SELECT 1"))
+            logger.info("Database connection established")
+        except Exception as e:
+            logger.error("Database connection failed", error=str(e))
 
     yield
 

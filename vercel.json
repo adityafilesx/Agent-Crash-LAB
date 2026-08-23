@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/**/*.py",
+      "src": "backend/app/main.py",
       "use": "@vercel/python"
     },
     {
@@ -16,15 +16,15 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/index.py"
+      "destination": "/backend/app/main.py"
     },
     {
       "source": "/docs",
-      "destination": "/api/index.py"
+      "destination": "/backend/app/main.py"
     },
     {
       "source": "/openapi.json",
-      "destination": "/api/index.py"
+      "destination": "/backend/app/main.py"
     },
     {
       "source": "/(.*)",
