@@ -1,6 +1,18 @@
 {
   "version": 2,
-  "outputDirectory": "frontend/dist",
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "frontend/dist"
+      }
+    }
+  ],
   "functions": {
     "api/index.py": {
       "includeFiles": "backend/**"
@@ -9,15 +21,19 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api"
+      "destination": "/api/index.py"
     },
     {
       "source": "/docs",
-      "destination": "/api"
+      "destination": "/api/index.py"
     },
     {
       "source": "/openapi.json",
-      "destination": "/api"
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/(assets/.*)",
+      "destination": "/$1"
     },
     {
       "source": "/(.*)",
