@@ -343,7 +343,7 @@ Agent Crash Lab uses a **dark cyberpunk command-center** aesthetic designed to m
 ### 1. Clone the Repository
 
 ```bash
-git clone <YOUR_REPOSITORY_URL>
+git clone https://github.com/adityafilesx/Agent-Crash-LAB.git
 cd Agent-Crash-LAB
 ```
 
