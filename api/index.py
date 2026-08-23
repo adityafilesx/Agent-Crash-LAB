@@ -1,7 +1,24 @@
 import sys
 import os
 
+# Set up ephemeral database for Vercel
+os.environ["DATABASE_URL"] = "sqlite:////tmp/test.db"
+
 # Add the backend directory to the Python path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'backend')))
+backend_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'backend'))
+sys.path.insert(0, backend_path)
 
 from app.main import app
+from app.core.database import Base, engine
+
+# Create tables if they don't exist
+Base.metadata.create_all(bind=engine)
+
+# Try to seed if empty
+try:
+    from seed_agents import seed_agents
+    from seed_scenarios import seed_scenarios
+    seed_agents()
+    seed_scenarios()
+except Exception as e:
+    print("Seed failed:", e)
